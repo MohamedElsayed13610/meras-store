@@ -1,27 +1,68 @@
-<section class="collection-page">
-  <span class="eyebrow">MERAS COLLECTION</span>
-  <h1>{{ collection.title }}</h1>
-  {% if collection.description != blank %}<div>{{ collection.description }}</div>{% endif %}
-  <div class="products">
-    {% paginate collection.products by 24 %}
+<section class="collection-page collection-page-premium">
+  <div class="collection-hero">
+    <span class="eyebrow">MERAS COLLECTION</span>
+    <h1>{{ collection.title }}</h1>
+    {% if collection.description != blank %}<div class="collection-description">{{ collection.description }}</div>{% endif %}
+  </div>
+
+  {% paginate collection.products by 24 %}
+    <div class="products collection-products">
       {% for product in collection.products %}
-        <a class="product-card" href="{{ product.url }}">
-          <div class="product-media">
+        {% liquid
+          assign product_tone = 'tone-stone'
+          if product.title contains 'أسود'
+            assign product_tone = 'tone-black'
+          elsif product.title contains 'بيج' or product.title contains 'أوف وايت' or product.title contains 'أبيض'
+            assign product_tone = 'tone-sand'
+          elsif product.title contains 'سماوي' or product.title contains 'أزرق'
+            assign product_tone = 'tone-blue'
+          elsif product.title contains 'رمادي'
+            assign product_tone = 'tone-grey'
+          elsif product.title contains 'موف' or product.title contains 'بنفسجي'
+            assign product_tone = 'tone-mauve'
+          elsif product.title contains 'خردلي' or product.title contains 'ذهبي'
+            assign product_tone = 'tone-gold'
+          elsif product.title contains 'عنابي' or product.title contains 'أحمر'
+            assign product_tone = 'tone-wine'
+          elsif product.title contains 'أخضر'
+            assign product_tone = 'tone-green'
+          elsif product.title contains 'كحلي'
+            assign product_tone = 'tone-navy'
+          endif
+        %}
+
+        <article class="product-card {{ product_tone }}" data-reveal>
+          <a class="product-media" href="{{ product.url }}">
+            <span class="product-swatch" aria-hidden="true"></span>
             {% if product.featured_image %}
               {{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '360,540,720,900', alt: product.title }}
             {% endif %}
+            <span class="product-view">عرض التفاصيل</span>
+          </a>
+          <div class="product-info-row">
+            <a class="product-copy" href="{{ product.url }}">
+              <span class="product-kicker">MERAS</span>
+              <h3>{{ product.title }}</h3>
+            </a>
+            <strong class="product-price">{{ product.price | money }}</strong>
           </div>
-          <div class="product-meta">
-            <div><h3>{{ product.title }}</h3><span>مِراس</span></div>
-            <strong>{{ product.price | money }}</strong>
-          </div>
-        </a>
+          <form class="quick-add" method="post" action="{{ routes.cart_add_url }}" data-ajax-cart-form>
+            <label class="quick-size-label" for="CollectionSize-{{ section.id }}-{{ product.id }}">المقاس</label>
+            <select class="quick-size" id="CollectionSize-{{ section.id }}-{{ product.id }}" name="id">
+              {% for variant in product.variants %}
+                <option value="{{ variant.id }}" {% unless variant.available %}disabled{% endunless %}>{{ variant.title }}{% unless variant.available %} — غير متاح{% endunless %}</option>
+              {% endfor %}
+            </select>
+            <input type="hidden" name="quantity" value="1">
+            <button type="submit" {% unless product.available %}disabled{% endunless %}><span>أضيفي إلى السلة</span><span class="quick-add-icon">+</span></button>
+          </form>
+        </article>
       {% else %}
-        <p>لا توجد منتجات في هذه المجموعة بعد.</p>
+        <div class="collection-empty">لا توجد منتجات في هذه المجموعة بعد.</div>
       {% endfor %}
-      {{ paginate | default_pagination }}
-    {% endpaginate %}
-  </div>
+    </div>
+    <div class="pagination">{{ paginate | default_pagination }}</div>
+  {% endpaginate %}
 </section>
 
 {% schema %}
