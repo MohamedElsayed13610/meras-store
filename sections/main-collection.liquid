@@ -1,0 +1,32 @@
+<section class="collection-page">
+  <span class="eyebrow">MERAS COLLECTION</span>
+  <h1>{{ collection.title }}</h1>
+  {% if collection.description != blank %}<div>{{ collection.description }}</div>{% endif %}
+  <div class="products">
+    {% paginate collection.products by 24 %}
+      {% for product in collection.products %}
+        <a class="product-card" href="{{ product.url }}">
+          <div class="product-media">
+            {% if product.featured_image %}
+              {{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '360,540,720,900', alt: product.title }}
+            {% endif %}
+          </div>
+          <div class="product-meta">
+            <div><h3>{{ product.title }}</h3><span>مِراس</span></div>
+            <strong>{{ product.price | money }}</strong>
+          </div>
+        </a>
+      {% else %}
+        <p>لا توجد منتجات في هذه المجموعة بعد.</p>
+      {% endfor %}
+      {{ paginate | default_pagination }}
+    {% endpaginate %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main collection",
+  "settings": []
+}
+{% endschema %}
