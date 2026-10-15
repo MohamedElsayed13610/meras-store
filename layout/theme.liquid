@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#f4efe8">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <title>{% if page_title != blank %}{{ page_title }} – {% endif %}{{ shop.name }}</title>
+    {{ content_for_header }}
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+  </head>
+  <body>
+    {% section 'meras-header' %}
+    <main id="MainContent" role="main">{{ content_for_layout }}</main>
+    {% section 'meras-footer' %}
+  </body>
+</html>
