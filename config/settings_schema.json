@@ -1,0 +1,10 @@
+[
+  {
+    "name": "مِراس",
+    "settings": [
+      { "type": "color", "id": "background", "label": "لون الخلفية", "default": "#F4EFE8" },
+      { "type": "color", "id": "foreground", "label": "لون النص", "default": "#1B1A18" },
+      { "type": "text", "id": "founder_name", "label": "اسم المؤسسة", "default": "منى الطحاوي" }
+    ]
+  }
+]
