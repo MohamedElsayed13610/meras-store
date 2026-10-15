@@ -1,35 +1,57 @@
-<section class="product-page">
+<section class="product-page product-page-premium">
   <div class="product-gallery">
-    {% if product.featured_image %}
-      {{ product.featured_image | image_url: width: 1400 | image_tag: loading: 'eager', widths: '700,1000,1400', alt: product.title }}
-    {% endif %}
+    {% for image in product.images limit: 4 %}
+      <figure class="product-gallery-item {% if forloop.first %}is-primary{% endif %}">
+        {{ image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '500,800,1100,1400', alt: product.title }}
+      </figure>
+    {% endfor %}
   </div>
-  <div class="product-info">
-    <span class="eyebrow">MِRAS</span>
-    <h1>{{ product.title }}</h1>
-    <div class="price">{{ product.selected_or_first_available_variant.price | money }}</div>
-    <div>{{ product.description }}</div>
 
-    {% form 'product', product %}
+  <div class="product-info product-info-sticky">
+    <div class="product-breadcrumb">مِراس / {{ product.type | default: 'COLLECTION' }}</div>
+    <h1>{{ product.title }}</h1>
+    <div class="product-price-line">
+      <span class="price">{{ product.selected_or_first_available_variant.price | money }}</span>
+      <span class="tax-note">السعر شامل الضريبة إن وجدت</span>
+    </div>
+
+    {% if product.description != blank %}
+      <div class="product-description">{{ product.description }}</div>
+    {% endif %}
+
+    {% form 'product', product, class: 'product-form', data-ajax-cart-form: '' %}
       {% unless product.has_only_default_variant %}
-        <label for="Variant-{{ section.id }}">المقاس / اللون</label>
-        <select class="variant-select" id="Variant-{{ section.id }}" name="id">
-          {% for variant in product.variants %}
-            <option value="{{ variant.id }}" {% if variant == product.selected_or_first_available_variant %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
-              {{ variant.title }} — {{ variant.price | money }}{% unless variant.available %} — غير متاح{% endunless %}
-            </option>
-          {% endfor %}
-        </select>
+        <div class="field-group">
+          <label for="Variant-{{ section.id }}">اختاري المقاس / اللون</label>
+          <select class="variant-select" id="Variant-{{ section.id }}" name="id">
+            {% for variant in product.variants %}
+              <option value="{{ variant.id }}" {% if variant == product.selected_or_first_available_variant %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
+                {{ variant.title }}{% unless variant.available %} — غير متاح{% endunless %}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
       {% else %}
         <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
       {% endunless %}
 
-      <label for="Quantity-{{ section.id }}">الكمية</label><br>
-      <input class="qty" id="Quantity-{{ section.id }}" type="number" name="quantity" min="1" value="1">
-      <button class="add-button" type="submit" {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
-        {% if product.selected_or_first_available_variant.available %}أضيفي إلى السلة{% else %}غير متاح حاليًا{% endif %}
-      </button>
+      <div class="purchase-row">
+        <div class="qty-wrap">
+          <label for="Quantity-{{ section.id }}">الكمية</label>
+          <input class="qty" id="Quantity-{{ section.id }}" type="number" name="quantity" min="1" value="1">
+        </div>
+        <button class="add-button" type="submit" {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
+          <span>{% if product.selected_or_first_available_variant.available %}أضيفي إلى السلة{% else %}غير متاح حاليًا{% endif %}</span>
+          <span aria-hidden="true">+</span>
+        </button>
+      </div>
     {% endform %}
+
+    <div class="product-services">
+      <div><strong>دفع آمن</strong><span>Checkout من Shopify</span></div>
+      <div><strong>الدفع عند الاستلام</strong><span>متاح حسب منطقة الشحن</span></div>
+      <div><strong>خدمة العملاء</strong><span>مساعدة قبل وبعد الطلب</span></div>
+    </div>
   </div>
 </section>
 
