@@ -1,0 +1,41 @@
+<section class="product-page">
+  <div class="product-gallery">
+    {% if product.featured_image %}
+      {{ product.featured_image | image_url: width: 1400 | image_tag: loading: 'eager', widths: '700,1000,1400', alt: product.title }}
+    {% endif %}
+  </div>
+  <div class="product-info">
+    <span class="eyebrow">MِRAS</span>
+    <h1>{{ product.title }}</h1>
+    <div class="price">{{ product.selected_or_first_available_variant.price | money }}</div>
+    <div>{{ product.description }}</div>
+
+    {% form 'product', product %}
+      {% unless product.has_only_default_variant %}
+        <label for="Variant-{{ section.id }}">المقاس / اللون</label>
+        <select class="variant-select" id="Variant-{{ section.id }}" name="id">
+          {% for variant in product.variants %}
+            <option value="{{ variant.id }}" {% if variant == product.selected_or_first_available_variant %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
+              {{ variant.title }} — {{ variant.price | money }}{% unless variant.available %} — غير متاح{% endunless %}
+            </option>
+          {% endfor %}
+        </select>
+      {% else %}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      {% endunless %}
+
+      <label for="Quantity-{{ section.id }}">الكمية</label><br>
+      <input class="qty" id="Quantity-{{ section.id }}" type="number" name="quantity" min="1" value="1">
+      <button class="add-button" type="submit" {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
+        {% if product.selected_or_first_available_variant.available %}أضيفي إلى السلة{% else %}غير متاح حاليًا{% endif %}
+      </button>
+    {% endform %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main product",
+  "settings": []
+}
+{% endschema %}
