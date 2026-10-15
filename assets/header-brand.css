@@ -95,9 +95,12 @@
 .editorial .eyebrow{color:var(--sand)}
 .editorial h2 em{color:var(--sand)}
 .editorial p{color:#D9C7B3}
+.story-founder-card{justify-content:center}
 
 @media(max-width:600px){
-  .cart-trigger{width:40px;height:40px}
-  .cart-icon{width:23px;height:23px}
-  .cart-trigger b{top:-2px;left:-3px}
+  .nav-actions{min-width:44px;display:flex;align-items:center;justify-content:flex-start}
+  .cart-trigger{width:42px;height:42px;display:grid!important;visibility:visible!important;opacity:1!important;flex:0 0 42px}
+  .cart-trigger > .cart-icon{display:block!important;width:25px;height:25px;visibility:visible!important;opacity:1!important}
+  .cart-icon svg{display:block!important;stroke-width:2}
+  .cart-trigger b{top:-1px;left:-2px}
 }

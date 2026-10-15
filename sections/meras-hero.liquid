@@ -27,13 +27,12 @@
   </div>
 
   <div class="hero-media">
-    <span class="hero-media-label">Mِراس — أثر يُرى</span>
+    <span class="hero-media-label">مِراس — أثر يُرى</span>
     {% if section.settings.image != blank %}
       {{ section.settings.image | image_url: width: 1800 | image_tag: loading: 'eager', widths: '750,1100,1500,1800', alt: section.settings.heading }}
     {% elsif hero_product.featured_image %}
       {{ hero_product.featured_image | image_url: width: 1800 | image_tag: loading: 'eager', widths: '750,1100,1500,1800', alt: hero_product.title }}
     {% endif %}
-    <div class="hero-stamp" aria-hidden="true"><span>مِ</span><small>MERAS</small></div>
   </div>
 </section>
 
