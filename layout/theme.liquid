@@ -3,12 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="#f2eee8">
+    <meta name="theme-color" content="#6f2937">
     <link rel="canonical" href="{{ canonical_url }}">
     <title>{% if page_title != blank %}{{ page_title }} – {% endif %}{{ shop.name }}</title>
     {{ content_for_header }}
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'founder.css' | asset_url | stylesheet_tag }}
+    {{ 'header-brand.css' | asset_url | stylesheet_tag }}
   </head>
   <body class="meras-storefront">
     {% section 'meras-header' %}
