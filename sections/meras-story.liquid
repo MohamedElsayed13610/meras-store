@@ -1,12 +1,21 @@
-<section class="story" id="story">
-  <div class="story-mark">مِ</div>
-  <div>
-    <span class="eyebrow">THE STORY</span>
+<section class="story" id="story" data-reveal>
+  <div class="story-founder-card" aria-label="منى الطحاوي — المؤسسة والمالكة">
+    <div class="story-founder-monogram" aria-hidden="true">مِ</div>
+    <div class="story-founder-meta">
+      <span>FOUNDER · MERAS</span>
+      <strong>{{ settings.founder_name | default: 'منى الطحاوي' }}</strong>
+      <small>المؤسسة والمالكة</small>
+    </div>
+  </div>
+
+  <div class="story-copy">
+    <span class="eyebrow">THE MERAS STORY</span>
     <h2>{{ section.settings.heading }}</h2>
     <p>{{ section.settings.text }}</p>
-    <div class="story-founder">
-      <strong>{{ settings.founder_name | default: 'منى الطحاوي' }}</strong>
-      <span>المؤسسة والمالكة</span>
+    <div class="story-values" aria-label="قيم مِراس">
+      <span>قصّات مدروسة</span>
+      <span>ألوان لها شخصية</span>
+      <span>أناقة هادئة</span>
     </div>
   </div>
 </section>
@@ -16,7 +25,7 @@
   "name": "Meras story",
   "settings": [
     { "type": "text", "id": "heading", "label": "العنوان", "default": "مِراس هو ما يبقى من الأثر." },
-    { "type": "textarea", "id": "text", "label": "النص", "default": "علامة مصرية تنطلق من فكرة بسيطة: أن الأناقة الحقيقية لا تحتاج أن تكون صاخبة. كل قطعة تُختار لتكون قريبة من المرأة، من يومها، ومن طريقتها الخاصة في الحضور." }
+    { "type": "textarea", "id": "text", "label": "النص", "default": "برؤية منى الطحاوي، تقدّم مِراس أزياء نسائية عربية معاصرة تجمع بين الحضور الهادئ والتفاصيل المدروسة. كل قطعة تُختار لتكون قريبة من المرأة، من يومها، ومن طريقتها الخاصة في الأناقة." }
   ],
   "presets": [{ "name": "Meras story" }]
 }
