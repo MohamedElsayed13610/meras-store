@@ -1,20 +1,37 @@
-/* Meras header identity — brand-led overrides */
+/* Meras brand identity — sampled from supplied logo */
+:root{
+  --paper:#FCFAF6;
+  --paper-2:#EFE1C7;
+  --ink:#21150F;
+  --muted:#806C5C;
+  --line:rgba(68,45,31,.15);
+  --wine:#926634;
+  --wine-deep:#1B100C;
+  --sand:#D1AE7D;
+  --rose:#C19879;
+  --sage:#9A8169;
+  --navy:#4C382B;
+  --sky:#DBC7AA;
+  --mauve:#705546;
+  --gold:#C79A4A;
+}
+
 .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
 .announcement{
   background:var(--wine-deep);
-  color:#fff8f2;
-  border-bottom:1px solid rgba(199,167,122,.2);
+  color:#F4D9AE;
+  border-bottom:1px solid rgba(209,174,125,.22);
 }
-.announcement-dot{color:var(--sand);opacity:1}
+.announcement-dot{color:var(--gold);opacity:1}
 
 .nav{
-  border-bottom-color:rgba(111,41,55,.15);
-  background:rgba(248,244,238,.96);
-  box-shadow:0 8px 24px rgba(84,32,43,.035);
+  border-bottom-color:rgba(68,45,31,.14);
+  background:rgba(252,250,246,.96);
+  box-shadow:0 8px 24px rgba(34,23,21,.045);
 }
-.nav-links a,.about-link{color:#554943}
-.nav-links a:after,.about-link:after{background:var(--wine)}
+.nav-links a,.about-link{color:#453127}
+.nav-links a:after,.about-link:after{background:var(--gold)}
 .nav-links a:hover,.about-link:hover{color:var(--wine)}
 
 .brand-ar{color:var(--wine-deep)}
@@ -24,49 +41,63 @@
   width:44px;
   height:44px;
   padding:0;
-  border:1px solid rgba(111,41,55,.22);
+  border:0;
   border-radius:999px;
-  background:var(--wine);
-  color:#fff8f2;
+  background:transparent;
+  color:var(--wine-deep);
   display:grid;
   place-items:center;
   position:relative;
-  box-shadow:0 7px 20px rgba(84,32,43,.14);
-  transition:transform .22s ease,background .22s ease,box-shadow .22s ease,border-color .22s ease;
+  box-shadow:none;
+  transition:transform .22s ease,color .22s ease,background .22s ease;
 }
 .cart-trigger:hover{
-  background:var(--wine-deep);
-  border-color:var(--wine-deep);
+  background:rgba(209,174,125,.16);
+  color:var(--wine);
   transform:translateY(-1px);
-  box-shadow:0 10px 25px rgba(84,32,43,.2);
 }
-.cart-trigger:focus-visible{outline:2px solid var(--sand);outline-offset:3px}
-.cart-icon{width:21px;height:21px;display:block}
-.cart-icon svg{display:block;width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.cart-trigger:focus-visible{
+  outline:2px solid var(--gold);
+  outline-offset:3px;
+}
+.cart-icon{width:24px;height:24px;display:block}
+.cart-icon svg{
+  display:block;
+  width:100%;
+  height:100%;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.75;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
 .cart-trigger b{
   position:absolute;
-  top:-6px;
-  left:-6px;
-  min-width:19px;
-  height:19px;
+  top:-2px;
+  left:-3px;
+  min-width:18px;
+  height:18px;
   padding:0 4px;
   border:2px solid var(--paper);
   border-radius:999px;
-  background:var(--sand);
+  background:var(--gold);
   color:var(--wine-deep);
   display:grid;
   place-items:center;
   font:700 8px/1 Arial,sans-serif;
-  box-shadow:0 3px 9px rgba(84,32,43,.15);
+  box-shadow:0 2px 7px rgba(34,23,21,.15);
 }
 
-.drawer-checkout{background:var(--wine)}
-.drawer-checkout:hover{background:var(--wine-deep)}
-.cart-close:hover{border-color:var(--wine);color:var(--wine)}
+.drawer-checkout{background:var(--wine-deep);color:#fff}
+.drawer-checkout:hover{background:var(--wine)}
+.cart-close:hover{border-color:var(--gold);color:var(--wine)}
 .cart-toast{background:var(--wine-deep)}
+.editorial .eyebrow{color:var(--sand)}
+.editorial h2 em{color:var(--sand)}
+.editorial p{color:#D9C7B3}
 
 @media(max-width:600px){
   .cart-trigger{width:40px;height:40px}
-  .cart-icon{width:20px;height:20px}
-  .cart-trigger b{top:-5px;left:-5px}
+  .cart-icon{width:23px;height:23px}
+  .cart-trigger b{top:-2px;left:-3px}
 }
