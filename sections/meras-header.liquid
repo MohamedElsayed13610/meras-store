@@ -1,17 +1,27 @@
-<div class="announcement">شحن داخل مصر — تجربة مِراس الجديدة</div>
+<div class="announcement">
+  <span>مِراس — شحن داخل مصر</span>
+  <span class="announcement-dot">•</span>
+  <span>الدفع عند الاستلام متاح</span>
+</div>
 <header class="nav">
   <nav class="nav-links" aria-label="التنقل الرئيسي">
     <a href="{{ routes.root_url }}#new">الجديد</a>
-    <a href="{{ routes.all_products_collection_url }}">العبايات والدريسات</a>
-    <a href="{{ routes.root_url }}#occasion">المناسبات</a>
-    <a href="{{ routes.root_url }}#story">عن مِراس</a>
+    <a href="/collections/العبايات">عبايات</a>
+    <a href="/collections/دريسات">دريسات</a>
+    <a href="/collections/مناسبات">مناسبات</a>
   </nav>
+
   <a class="brand" href="{{ routes.root_url }}" aria-label="مِراس - الرئيسية">
     <span class="brand-ar">مِراس</span>
     <span class="brand-en">MERAS</span>
   </a>
+
   <div class="nav-actions">
-    <a class="cart-link" href="{{ routes.cart_url }}">السلة ({{ cart.item_count }})</a>
+    <a class="about-link" href="{{ routes.root_url }}#story">عن مِراس</a>
+    <button class="cart-trigger" type="button" data-cart-open aria-label="فتح السلة">
+      <span>السلة</span>
+      <b data-cart-count>{{ cart.item_count }}</b>
+    </button>
   </div>
 </header>
 
