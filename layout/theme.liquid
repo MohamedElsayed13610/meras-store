@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="#f4efe8">
+    <meta name="theme-color" content="#f2eee8">
     <link rel="canonical" href="{{ canonical_url }}">
     <title>{% if page_title != blank %}{{ page_title }} – {% endif %}{{ shop.name }}</title>
     {{ content_for_header }}
@@ -13,5 +13,27 @@
     {% section 'meras-header' %}
     <main id="MainContent" role="main">{{ content_for_layout }}</main>
     {% section 'meras-footer' %}
+
+    <div class="cart-overlay" data-cart-overlay hidden></div>
+    <aside class="cart-drawer" data-cart-drawer aria-hidden="true" aria-label="سلة التسوق">
+      <div class="cart-drawer-head">
+        <div><span class="eyebrow">YOUR BAG</span><h2>سلة مِراس</h2></div>
+        <button class="cart-close" type="button" data-cart-close aria-label="إغلاق السلة">×</button>
+      </div>
+      <div class="cart-drawer-body" data-cart-body>
+        <p class="cart-loading">جارٍ تحميل السلة…</p>
+      </div>
+      <div class="cart-drawer-foot" data-cart-footer hidden>
+        <div class="cart-total-row"><span>الإجمالي</span><strong data-cart-total></strong></div>
+        <a class="drawer-checkout" href="/checkout">إتمام الطلب</a>
+        <a class="drawer-cart-link" href="{{ routes.cart_url }}">عرض السلة كاملة</a>
+      </div>
+    </aside>
+
+    <div class="cart-toast" data-cart-toast aria-live="polite">تمت الإضافة إلى السلة</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/ScrollTrigger.min.js" defer></script>
+    <script src="{{ 'theme.js' | asset_url }}" defer></script>
   </body>
 </html>
