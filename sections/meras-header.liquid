@@ -1,0 +1,23 @@
+<div class="announcement">شحن داخل مصر — تجربة مِراس الجديدة</div>
+<header class="nav">
+  <nav class="nav-links" aria-label="التنقل الرئيسي">
+    <a href="{{ routes.root_url }}#new">الجديد</a>
+    <a href="{{ routes.all_products_collection_url }}">العبايات والدريسات</a>
+    <a href="{{ routes.root_url }}#occasion">المناسبات</a>
+    <a href="{{ routes.root_url }}#story">عن مِراس</a>
+  </nav>
+  <a class="brand" href="{{ routes.root_url }}" aria-label="مِراس - الرئيسية">
+    <span class="brand-ar">مِراس</span>
+    <span class="brand-en">MERAS</span>
+  </a>
+  <div class="nav-actions">
+    <a class="cart-link" href="{{ routes.cart_url }}">السلة ({{ cart.item_count }})</a>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Meras header",
+  "settings": []
+}
+{% endschema %}
