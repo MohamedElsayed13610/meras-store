@@ -11,26 +11,34 @@
     <div class="product-breadcrumb">مِراس / {{ product.type | default: 'COLLECTION' }}</div>
     <h1>{{ product.title }}</h1>
     <div class="product-price-line">
-      <span class="price">{{ product.selected_or_first_available_variant.price | money }}</span>
+      <span class="price" data-product-price>{{ product.selected_or_first_available_variant.price | money }}</span>
       <span class="tax-note">السعر شامل الضريبة إن وجدت</span>
     </div>
 
     {% if product.description != blank %}
       <div class="product-description">{{ product.description }}</div>
+    {% else %}
+      <div class="product-description">قطعة من مجموعة مِراس بقصّة أنيقة وتفاصيل هادئة، مصممة لتناسب الإطلالات اليومية والمناسبات.</div>
     {% endif %}
 
     {% form 'product', product, class: 'product-form', data-ajax-cart-form: '' %}
       {% unless product.has_only_default_variant %}
-        <div class="field-group">
-          <label for="Variant-{{ section.id }}">اختاري المقاس / اللون</label>
-          <select class="variant-select" id="Variant-{{ section.id }}" name="id">
-            {% for variant in product.variants %}
-              <option value="{{ variant.id }}" {% if variant == product.selected_or_first_available_variant %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
-                {{ variant.title }}{% unless variant.available %} — غير متاح{% endunless %}
-              </option>
-            {% endfor %}
-          </select>
-        </div>
+        <fieldset class="size-picker" data-size-picker>
+          <legend>اختاري المقاس</legend>
+          {% for variant in product.variants %}
+            <label class="size-chip {% unless variant.available %}is-disabled{% endunless %}">
+              <input
+                type="radio"
+                name="id"
+                value="{{ variant.id }}"
+                data-variant-price="{{ variant.price | money | escape }}"
+                {% if variant == product.selected_or_first_available_variant %}checked{% endif %}
+                {% unless variant.available %}disabled{% endunless %}
+              >
+              <span>{{ variant.title }}</span>
+            </label>
+          {% endfor %}
+        </fieldset>
       {% else %}
         <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
       {% endunless %}
@@ -47,6 +55,11 @@
       </div>
     {% endform %}
 
+    <div class="fit-note">
+      <span>المقاسات المتاحة</span>
+      <strong>S · M · L · XL · 2XL · 3XL · 4XL</strong>
+    </div>
+
     <div class="product-services">
       <div><strong>دفع آمن</strong><span>Checkout من Shopify</span></div>
       <div><strong>الدفع عند الاستلام</strong><span>متاح حسب منطقة الشحن</span></div>
@@ -54,6 +67,15 @@
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener('change', function(event) {
+    if (!event.target.matches('[data-size-picker] input[name="id"]')) return;
+    var price = event.target.getAttribute('data-variant-price');
+    var priceNode = document.querySelector('[data-product-price]');
+    if (priceNode && price) priceNode.textContent = price;
+  });
+</script>
 
 {% schema %}
 {
