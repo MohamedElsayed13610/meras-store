@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "hero": { "type": "meras-hero", "settings": {} },
+    "featured": { "type": "meras-featured-collection", "settings": {} },
+    "story": { "type": "meras-story", "settings": {} }
+  },
+  "order": ["hero", "featured", "story"]
+}
