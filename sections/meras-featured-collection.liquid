@@ -1,0 +1,59 @@
+{% liquid
+  assign chosen_collection = section.settings.collection
+  if chosen_collection == blank
+    assign products_to_show = collections.all.products
+  else
+    assign products_to_show = chosen_collection.products
+  endif
+%}
+<section class="section" id="new">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">NEW EDIT</span>
+      <h2>{{ section.settings.heading }}</h2>
+    </div>
+    <p>{{ section.settings.text }}</p>
+  </div>
+  <div class="products" id="collection">
+    {% for product in products_to_show limit: section.settings.products_to_show %}
+      <a class="product-card" href="{{ product.url }}">
+        <div class="product-media">
+          {% if product.featured_image %}
+            {{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '360,540,720,900', alt: product.title }}
+          {% endif %}
+        </div>
+        <div class="product-meta">
+          <div>
+            <h3>{{ product.title }}</h3>
+            <span>مِراس — إصدار محدود</span>
+          </div>
+          <strong>{{ product.price | money }}</strong>
+        </div>
+      </a>
+    {% else %}
+      <p>أضيفي منتجاتك من Shopify لتظهر هنا تلقائيًا.</p>
+    {% endfor %}
+  </div>
+</section>
+<section class="editorial" id="occasion">
+  <div>
+    <span class="eyebrow">OCCASION EDIT</span>
+    <h2>أناقة تُرى،<br>ولا تصرخ.</h2>
+    <p>قطع المناسبات عند مِراس مبنية على التفاصيل: ملمس، حركة، وخطوط تترك الانطباع من غير ازدحام.</p>
+    <a class="button" href="{{ routes.all_products_collection_url }}">شاهدي قطع المناسبات</a>
+  </div>
+  <div></div>
+</section>
+
+{% schema %}
+{
+  "name": "Meras featured products",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "المجموعة" },
+    { "type": "text", "id": "heading", "label": "العنوان", "default": "مختارات مِراس" },
+    { "type": "textarea", "id": "text", "label": "الوصف", "default": "قطع مصممة لتتنقل معكِ من تفاصيل يومك إلى مناسباتك، بنفس الهدوء والثقة." },
+    { "type": "range", "id": "products_to_show", "label": "عدد المنتجات", "min": 4, "max": 12, "step": 1, "default": 8 }
+  ],
+  "presets": [{ "name": "Meras featured products" }]
+}
+{% endschema %}
