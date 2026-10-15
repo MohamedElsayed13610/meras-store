@@ -22,19 +22,14 @@ export type ShopifyProduct = {
   }>;
 };
 
-const domain = process.env.SHOPIFY_STORE_DOMAIN;
-const storefrontToken = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN;
+const domain = process.env.SHOPIFY_STORE_DOMAIN || 'merass-store.myshopify.com';
+const apiVersion = '2026-10';
 
 async function shopifyFetch<T>(query: string, variables: Record<string, unknown> = {}) {
-  if (!domain || !storefrontToken || storefrontToken === 'replace_me') {
-    return null;
-  }
-
-  const response = await fetch(`https://${domain}/api/2025-10/graphql.json`, {
+  const response = await fetch(`https://${domain}/api/${apiVersion}/graphql.json`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'X-Shopify-Storefront-Access-Token': storefrontToken
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({ query, variables }),
     next: { revalidate: 300 }
@@ -98,8 +93,6 @@ export async function getProducts(first = 8): Promise<ShopifyProduct[]> {
       }>;
     };
   }>(query, { first });
-
-  if (!data) return [];
 
   return data.products.nodes.map((product) => ({
     ...product,
