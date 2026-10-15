@@ -46,7 +46,6 @@
         elsif product.title contains 'كحلي'
           assign product_tone = 'tone-navy'
         endif
-        assign selected_variant = product.selected_or_first_available_variant
       %}
 
       <article class="product-card {{ product_tone }}" data-reveal>
@@ -67,16 +66,19 @@
           <strong class="product-price">{{ product.price | money }}</strong>
         </div>
 
-        {% if selected_variant %}
-          <form class="quick-add" method="post" action="{{ routes.cart_add_url }}" data-ajax-cart-form>
-            <input type="hidden" name="id" value="{{ selected_variant.id }}">
-            <input type="hidden" name="quantity" value="1">
-            <button type="submit" {% unless selected_variant.available %}disabled{% endunless %}>
-              <span>{% if selected_variant.available %}أضيفي إلى السلة{% else %}غير متاح{% endif %}</span>
-              <span class="quick-add-icon" aria-hidden="true">+</span>
-            </button>
-          </form>
-        {% endif %}
+        <form class="quick-add" method="post" action="{{ routes.cart_add_url }}" data-ajax-cart-form>
+          <label class="quick-size-label" for="QuickSize-{{ section.id }}-{{ product.id }}">المقاس</label>
+          <select class="quick-size" id="QuickSize-{{ section.id }}-{{ product.id }}" name="id" aria-label="اختاري المقاس">
+            {% for variant in product.variants %}
+              <option value="{{ variant.id }}" {% unless variant.available %}disabled{% endunless %}>{{ variant.title }}{% unless variant.available %} — غير متاح{% endunless %}</option>
+            {% endfor %}
+          </select>
+          <input type="hidden" name="quantity" value="1">
+          <button type="submit" {% unless product.available %}disabled{% endunless %}>
+            <span>{% if product.available %}أضيفي إلى السلة{% else %}غير متاح{% endif %}</span>
+            <span class="quick-add-icon" aria-hidden="true">+</span>
+          </button>
+        </form>
       </article>
     {% else %}
       <p>أضيفي منتجاتك من Shopify لتظهر هنا تلقائيًا.</p>
