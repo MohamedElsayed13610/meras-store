@@ -8,6 +8,7 @@
     <title>{% if page_title != blank %}{{ page_title }} – {% endif %}{{ shop.name }}</title>
     {{ content_for_header }}
     {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'founder.css' | asset_url | stylesheet_tag }}
   </head>
   <body class="meras-storefront">
     {% section 'meras-header' %}
