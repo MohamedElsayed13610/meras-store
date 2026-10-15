@@ -1,0 +1,26 @@
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <span class="brand-ar">مِراس</span>
+      <p>عبايات ودريسات بتفاصيل تصنع الأثر.</p>
+    </div>
+    <div>
+      <strong>تسوّقي</strong>
+      <a href="{{ routes.all_products_collection_url }}">كل المنتجات</a>
+      <a href="{{ routes.root_url }}#new">الجديد</a>
+    </div>
+    <div>
+      <strong>مِراس</strong>
+      <a href="{{ routes.root_url }}#story">عن العلامة</a>
+      <a href="{{ routes.cart_url }}">السلة</a>
+    </div>
+  </div>
+  <small>© {{ 'now' | date: '%Y' }} مِراس — جميع الحقوق محفوظة.</small>
+</footer>
+
+{% schema %}
+{
+  "name": "Meras footer",
+  "settings": []
+}
+{% endschema %}
