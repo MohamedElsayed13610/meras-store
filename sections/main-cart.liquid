@@ -1,0 +1,37 @@
+<section class="cart-page">
+  <span class="eyebrow">MERAS CART</span>
+  <h1>سلة التسوق</h1>
+  {% if cart.item_count > 0 %}
+    {% form 'cart', cart %}
+      {% for item in cart.items %}
+        <div class="cart-row">
+          {% if item.image %}{{ item.image | image_url: width: 240 | image_tag: loading: 'lazy', alt: item.product.title }}{% endif %}
+          <div>
+            <a href="{{ item.url }}">{{ item.product.title }}</a>
+            <div>{{ item.variant.title }}</div>
+            <div>{{ item.final_line_price | money }}</div>
+            <input class="qty" type="number" name="updates[]" value="{{ item.quantity }}" min="0">
+          </div>
+          <div><a href="{{ item.url_to_remove }}">حذف</a></div>
+        </div>
+      {% endfor %}
+      <div class="checkout">
+        <p>الإجمالي: <strong>{{ cart.total_price | money }}</strong></p>
+        <button type="submit" name="update">تحديث السلة</button>
+        <button type="submit" name="checkout">إتمام الطلب</button>
+      </div>
+    {% endform %}
+  {% else %}
+    <div class="empty">
+      <p>السلة فارغة حاليًا.</p>
+      <a class="button button-dark" href="{{ routes.all_products_collection_url }}">تسوّقي الآن</a>
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Main cart",
+  "settings": []
+}
+{% endschema %}
